@@ -7,7 +7,7 @@ const agenda = {
   title:
     "A primeira edição da agenda Aurora de Luz - calendário da alma Agenda holistica 2025",
   description:
-    "Transforme a tua jornada interior com nossa agenda exclusiva. Uma companheira para a tua evolução pessoal e espiritual.",
+    "Transforma a tua jornada interior com nossa agenda exclusiva. Uma companheira para a tua evolução pessoal e espiritual.",
   features: [
     "Frases inspiradoras",
     "Receitas",
