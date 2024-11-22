@@ -15,14 +15,15 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Aurora de Luz",
-  description: "Transforme sua jornada interior com nossa agenda exclusiva. Um companheiro para sua evolução pessoal e espiritual.",
+  description:
+    "Transforme sua jornada interior com nossa agenda exclusiva. Um companheiro para sua evolução pessoal e espiritual.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="pt">
       <body
