@@ -2,9 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['images.unsplash.com'], // Adicione aqui os domínios das suas imagens
+    domains: [
+      'images.unsplash.com',
+      'api.dicebear.com'
+    ],
   },
-  // Otimizações de performance
   swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
