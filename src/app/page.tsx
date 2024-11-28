@@ -4,8 +4,7 @@ import Link from "next/link";
 const agenda = {
   id: 1,
   image: "/agenda-2025-1.png",
-  title:
-    "A primeira edição da agenda Aurora de Luz - calendário da alma Agenda holistica 2025",
+  title: "A primeira edição da agenda Aurora de Luz - Calendário da Alma 2025",
   description:
     "Transforma a tua jornada interior com nossa agenda exclusiva. Uma companheira para a tua evolução pessoal e espiritual.",
   features: [

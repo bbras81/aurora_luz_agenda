@@ -6,8 +6,8 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Aurora M de Luz - Soluções em Iluminação",
-  description: "Soluções profissionais de iluminação para seu espaço",
+  title: "Aurora Luz",
+  description: "Terapias Holísticas",
 };
 
 export default function RootLayout({
