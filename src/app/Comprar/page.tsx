@@ -117,6 +117,7 @@ const CarrinhoForm = () => {
           </label>
           <button
             type="submit"
+            disabled={true}
             className="bg-[var(--accent-primary)] hover:opacity-90 transition-opacity text-white font-bold py-2 px-6 rounded mt-4"
           >
             Finalizar Compra
