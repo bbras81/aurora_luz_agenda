@@ -1,54 +1,26 @@
-import React, { useState } from "react";
+"use client";
+
+import React from "react";
+
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const CheckoutForm = () => {
-  const [formData, setFormData] = useState({
-    nome: "",
-    morada: "",
-    cpostal: "",
-    email: "",
-    telemovel: "",
-  });
+  const handleSubmit = async (formData: FormData) => {
+    const nome = formData.get("nome") as string;
+    const morada = formData.get("morada") as string;
+    const cpostal = formData.get("cpostal") as string;
+    const email = formData.get("email") as string;
+    const telemovel = formData.get("telemovel") as string;
+    const quantidade = formData.get("quantidade") as string;
 
-  const [feedback, setFeedback] = useState(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    console.log(nome, morada, cpostal, email, telemovel, quantidade);
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("/api/submitForm", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setFeedback("Formulário enviado com sucesso!");
-        setFormData({
-          nome: "",
-          morada: "",
-          cpostal: "",
-          email: "",
-          telemovel: "",
-        });
-      } else {
-        const error = await response.json();
-        setFeedback(`Erro: ${error.message}`);
-      }
-    } catch (error) {
-      setFeedback("Erro ao enviar o formulário. Tente novamente.");
-    }
-  };
-
   return (
     <div className="lg:col-span-2 col-span-4 bg-white space-y-8 px-12">
       <form id="payment-form" onSubmit={handleSubmit}>
+      <form id="payment-form" method="POST" action={handleSubmit}>
         <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
           Pagamento e Dados de Envio
         </h2>
@@ -62,6 +34,7 @@ const CheckoutForm = () => {
               className="focus:outline-none px-3"
               required
             />
+            <input name="nome" className="focus:outline-none px-3" required />
           </label>
           <label className="flex border-b border-gray-200 h-12 py-3 items-center">
             <span className="text-right px-2">Morada</span>
@@ -72,6 +45,7 @@ const CheckoutForm = () => {
               className="focus:outline-none px-3"
               required
             />
+            <input name="morada" className="focus:outline-none px-3" required />
           </label>
           <label className="flex border-b border-gray-200 h-12 py-3 items-center">
             <span className="text-right px-2">C. Postal</span>
