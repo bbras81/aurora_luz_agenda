@@ -5,9 +5,35 @@ import prisma from "../../../prisma/db";
 import value from "./OrderSummary";
 
 const CheckoutForm = () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch('http://localhost:3000/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert('Dados enviados com sucesso!');
+      } else {
+        alert('Erro ao enviar dados.');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Erro ao enviar dados.');
+    }
+  };
+
   return (
     <div className="lg:col-span-2 col-span-4 bg-white space-y-8 px-12">
-      <form id="payment-form" method="POST" action="">
+      <form id="payment-form" method="POST" action="" onSubmit={handleSubmit}>
         <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
           Pagamento e Dados de Envio
         </h2>
