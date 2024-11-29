@@ -1,24 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const agenda = {
-  id: 1,
-  image: "/agenda-2025-1.png",
-  title: "A primeira edição da agenda Aurora de Luz - Calendário da Alma 2025",
-  description:
-    "Transforma a tua jornada interior com nossa agenda exclusiva. Uma companheira para a tua evolução pessoal e espiritual.",
-  features: [
-    "Frases inspiradoras",
-    "Receitas",
-    "Espaço para meditação e reflexão",
-    "Calendário  lunar",
-    "Roda do ano ",
-    "Rituais ",
-    "Sagrado feminino ",
-    "Formato A5 - vista semanal",
-  ],
-  price: "13,97€",
-};
+import stock from "../../public/data/Data";
 
 export default function Home() {
   return (
@@ -28,8 +10,8 @@ export default function Home() {
           {/* Product Image */}
           <div className="w-full">
             <Image
-              src={agenda.image}
-              alt={agenda.title}
+              src={stock.image}
+              alt={stock.title}
               width={705}
               height={1000}
               className="w-full h-full object-fill rounded-lg shadow-lg"
@@ -39,17 +21,17 @@ export default function Home() {
           {/* Product Details */}
           <div>
             <h1 className="text-3xl font-bold text-[var(--accent-primary)] mb-4">
-              {agenda.title}
+              {stock.title}
             </h1>
 
             <p className="text-lg text-[var(--foreground)] mb-6">
-              {agenda.description}
+              {stock.description}
             </p>
 
             <div className="mb-6">
               <h2 className="text-xl font-semibold mb-3">Destaques:</h2>
               <ul className="list-disc list-inside space-y-2 text-[var(--foreground)]">
-                {agenda.features.map((feature, index) => (
+                {stock.features.map((feature, index) => (
                   <li key={index}>{feature}</li>
                 ))}
               </ul>
@@ -57,7 +39,7 @@ export default function Home() {
 
             <div className="flex items-center mb-6">
               <span className="text-3xl font-bold text-[var(--accent-primary)] mr-4">
-                {agenda.price}
+                {stock.price}
               </span>
             </div>
 

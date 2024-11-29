@@ -17,6 +17,8 @@ model Cliente {
   id        Int     @id @default(autoincrement())
   nome      String
   morada    String
+  cpostal   String
   email     String  @unique
   telemovel String
+  quantidade Int
 }
