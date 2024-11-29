@@ -1,12 +1,12 @@
 -- CreateTable
 CREATE TABLE "Cliente" (
-    "id" SERIAL NOT NULL,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "nome" TEXT NOT NULL,
     "morada" TEXT NOT NULL,
+    "cpostal" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "telemovel" TEXT NOT NULL,
-
-    CONSTRAINT "Cliente_pkey" PRIMARY KEY ("id")
+    "quantidade" INTEGER NOT NULL
 );
 
 -- CreateIndex

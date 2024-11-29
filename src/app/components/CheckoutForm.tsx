@@ -1,7 +1,5 @@
 import React from "react";
 
-import prisma from "../../../prisma/db";
-
 import value from "./OrderSummary";
 
 const CheckoutForm = () => {
