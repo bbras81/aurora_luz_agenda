@@ -1,39 +1,54 @@
-import React from "react";
-
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-
-import value from "./OrderSummary";
-import { NextApiRequest, NextApiResponse } from "next";
+import React, { useState } from "react";
 
 const CheckoutForm = () => {
-  const handleSubmit = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method === "POST") {
-      try {
-        const data = req.body;
-        const cliente = await prisma.cliente.create({
-          data: {
-            nome: data.nome,
-            morada: data.morada,
-            cpostal: data.cpostal,
-            email: data.email,
-            telemovel: data.telemovel,
-            quantidade: value,
-          },
+  const [formData, setFormData] = useState({
+    nome: "",
+    morada: "",
+    cpostal: "",
+    email: "",
+    telemovel: "",
+  });
+
+  const [feedback, setFeedback] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/submitForm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFeedback("Formulário enviado com sucesso!");
+        setFormData({
+          nome: "",
+          morada: "",
+          cpostal: "",
+          email: "",
+          telemovel: "",
         });
-        res.status(201).json({ message: "Form submitted successfully" });
-      } catch (error) {
-        console.error("Error submitting form:", error);
-        res.status(500).json({ message: "Error submitting form" });
+      } else {
+        const error = await response.json();
+        setFeedback(`Erro: ${error.message}`);
       }
-    } else {
-      res.status(405).json({ message: "Method not allowed" });
+    } catch (error) {
+      setFeedback("Erro ao enviar o formulário. Tente novamente.");
     }
   };
 
   return (
     <div className="lg:col-span-2 col-span-4 bg-white space-y-8 px-12">
-      <form id="payment-form" method="POST" action="" onSubmit={handleSubmit}>
+      <form id="payment-form" onSubmit={handleSubmit}>
         <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
           Pagamento e Dados de Envio
         </h2>
@@ -41,8 +56,9 @@ const CheckoutForm = () => {
           <label className="flex border-b border-gray-200 h-12 py-3 items-center">
             <span className="text-right px-2">Nome</span>
             <input
-              id="name"
-              name="name"
+              name="nome"
+              value={formData.nome}
+              onChange={handleChange}
               className="focus:outline-none px-3"
               required
             />
@@ -50,8 +66,9 @@ const CheckoutForm = () => {
           <label className="flex border-b border-gray-200 h-12 py-3 items-center">
             <span className="text-right px-2">Morada</span>
             <input
-              id="morada"
               name="morada"
+              value={formData.morada}
+              onChange={handleChange}
               className="focus:outline-none px-3"
               required
             />
@@ -59,8 +76,9 @@ const CheckoutForm = () => {
           <label className="flex border-b border-gray-200 h-12 py-3 items-center">
             <span className="text-right px-2">C. Postal</span>
             <input
-              id="cpostal"
               name="cpostal"
+              value={formData.cpostal}
+              onChange={handleChange}
               className="focus:outline-none px-3"
               placeholder="1234-123"
               required
@@ -69,9 +87,10 @@ const CheckoutForm = () => {
           <label className="flex border-b border-gray-200 h-12 py-3 items-center">
             <span className="text-right px-2">Email</span>
             <input
-              id="email"
               name="email"
               type="email"
+              value={formData.email}
+              onChange={handleChange}
               className="focus:outline-none px-3"
               placeholder="nome@examplo.pt"
               required
@@ -80,8 +99,9 @@ const CheckoutForm = () => {
           <label className="flex border-b border-gray-200 h-12 py-3 items-center">
             <span className="text-right px-2">Telemóvel</span>
             <input
-              id="telemovel"
               name="telemovel"
+              value={formData.telemovel}
+              onChange={handleChange}
               className="focus:outline-none px-3"
               required
             />
@@ -90,8 +110,8 @@ const CheckoutForm = () => {
         <button className="submit-button px-4 py-3 rounded-full bg-[var(--accent-primary)] text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
           Pagar
         </button>
+        {feedback && <p className="mt-4 text-red-600">{feedback}</p>}
       </form>
-      <br />
     </div>
   );
 };
