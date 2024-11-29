@@ -1,31 +1,33 @@
 import React from "react";
 
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 import value from "./OrderSummary";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const CheckoutForm = () => {
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-      const response = await fetch('http://localhost:3000/submit-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        alert('Dados enviados com sucesso!');
-      } else {
-        alert('Erro ao enviar dados.');
+  const handleSubmit = async (req: NextApiRequest, res: NextApiResponse) => {
+    if (req.method === "POST") {
+      try {
+        const data = req.body;
+        const cliente = await prisma.cliente.create({
+          data: {
+            nome: data.nome,
+            morada: data.morada,
+            cpostal: data.cpostal,
+            email: data.email,
+            telemovel: data.telemovel,
+            quantidade: value,
+          },
+        });
+        res.status(201).json({ message: "Form submitted successfully" });
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        res.status(500).json({ message: "Error submitting form" });
       }
-    } catch (error) {
-      console.error('Erro:', error);
-      alert('Erro ao enviar dados.');
+    } else {
+      res.status(405).json({ message: "Method not allowed" });
     }
   };
 

@@ -18,4 +18,4 @@ model Cliente {
   email     String  @unique
   telemovel String
   quantidade Int
-}
+}  
