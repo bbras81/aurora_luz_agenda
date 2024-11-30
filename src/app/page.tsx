@@ -20,9 +20,9 @@ export default function Home() {
 
           {/* Product Details */}
           <div>
-            <h1 className="text-3xl font-bold text-[var(--accent-primary)] mb-4">
-              {stock.title}
-            </h1>
+            <p className="text-lg text-[var(--foreground)] mb-6">
+              {stock.description}
+            </p>
 
             <p className="text-lg text-[var(--foreground)] mb-6">
               {stock.description}
@@ -45,11 +45,17 @@ export default function Home() {
 
             <div className="space-y-4">
               <Link
-                href="/Comprar"
-                className="block w-full text-center bg-[var(--accent-primary)] text-white py-4 rounded-lg text-lg hover:opacity-90 transition-opacity"
+                href="/"
+                className="block  w-full text-center bg-[var(--accent-primary)] text-white py-4 rounded-lg text-lg hover:opacity-90 transition-opacity"
               >
                 Comprar Agora
               </Link>
+            </div>
+            <div>
+              <p className="text-lg text-[var(--foreground)] mb-6">
+                Em caso de erro por favor contactar para o telefone: 912 812 769
+                ou para o mail: info.auroradeluz@gmail.com
+              </p>
             </div>
           </div>
         </div>

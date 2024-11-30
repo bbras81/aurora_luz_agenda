@@ -81,7 +81,7 @@ const CheckoutForm = () => {
             />
           </label>
         </fieldset>
-        <button className="submit-button px-4 py-3 rounded-full bg-[var(--accent-primary)] text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+        <button className="submit-button  px-4 py-3 rounded-full bg-[var(--accent-primary)] text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
           Pagar
         </button>
         {feedback && <p className="mt-4 text-red-600">{feedback}</p>}
