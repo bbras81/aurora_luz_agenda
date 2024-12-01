@@ -45,7 +45,7 @@ export default function Home() {
 
             <div className="space-y-4">
               <Link
-                href="/"
+                href="/Comprar"
                 className="block  w-full text-center bg-[var(--accent-primary)] text-white py-4 rounded-lg text-lg hover:opacity-90 transition-opacity"
               >
                 Comprar Agora
