@@ -51,12 +51,6 @@ export default function Home() {
                 Comprar Agora
               </Link>
             </div>
-            <div>
-              <p className="text-lg text-[var(--foreground)] mb-6">
-                Em caso de erro por favor contactar para o telefone: 912 812 769
-                ou para o mail: info.auroradeluz@gmail.com
-              </p>
-            </div>
           </div>
         </div>
 
