@@ -2,11 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
-import OrderSummary from "./OrderSummary";
 
 const CheckoutForm = () => {
   const router = useRouter();
-  const [quantidade, setQuantidade] = React.useState(0);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Evita o recarregamento da página
 

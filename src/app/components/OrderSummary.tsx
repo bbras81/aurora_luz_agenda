@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from "next/image"; // Certifique-se de importar o componente
 
 import stock from "../../../public/data/Data";
 
@@ -26,9 +27,11 @@ const OrderSummary = () => {
       <ul className="py-6 border-b space-y-6 px-8">
         <li className="grid grid-cols-6 gap-2 border-b-1 ">
           <div className="col-span-1 self-center">
-            <img
+            <Image
               src="/agenda-2025-1.png"
               alt="Product"
+              width={700} // Defina a largura
+              height={500} // Defina a altura
               className="rounded w-full"
             />
           </div>
