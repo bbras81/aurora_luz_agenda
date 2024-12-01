@@ -2,9 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
+import OrderSummary from "./OrderSummary";
 
 const CheckoutForm = () => {
   const router = useRouter();
+  const [quantidade, setQuantidade] = React.useState(0);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Evita o recarregamento da página
 
@@ -17,6 +19,7 @@ const CheckoutForm = () => {
     const localidade = formData.get("localidade")?.toString().trim();
     const email = formData.get("email")?.toString().trim();
     const telemovel = formData.get("telemovel")?.toString().trim();
+    const quantidade = localStorage.getItem("quantidade") || "1";
 
     // Validação dos campos
     if (!nome) {
@@ -43,7 +46,10 @@ const CheckoutForm = () => {
       alert("Por favor, insira um número de telemóvel válido com 9 dígitos.");
       return;
     }
-
+    if (!/^[1-9]\d*$/.test(quantidade.toString())) {
+      alert("Por favor, insira uma quantidade válida.");
+      return;
+    }
     // console.log("Dados validados:", formDataObject);
 
     try {
@@ -59,13 +65,14 @@ const CheckoutForm = () => {
           localidade,
           email,
           telemovel,
+          quantidade,
         }),
       });
       // Limpar o formulário
       event.currentTarget.reset();
 
       // Redirecionar para a próxima página
-      router.push("/proxima-pagina"); // Substitua "/proxima-pagina" pela rota desejada
+      router.push("/instrucoes");
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
     }

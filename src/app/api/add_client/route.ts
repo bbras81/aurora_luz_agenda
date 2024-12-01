@@ -4,7 +4,8 @@ import prisma from "../../lib/prisma";
 export async function POST(request: Request) {
   const res = await request.json();
   //   console.log(res);
-  const { nome, morada, cpostal, localidade, email, telemovel } = res;
+  const { nome, morada, cpostal, localidade, email, telemovel, quantidade } =
+    res;
   console.log({
     nome,
     morada,
@@ -12,6 +13,7 @@ export async function POST(request: Request) {
     localidade,
     email,
     telemovel,
+    quantidade,
   });
 
   const result = await prisma.cliente.create({
@@ -22,6 +24,7 @@ export async function POST(request: Request) {
       localidade,
       email,
       telemovel,
+      quantidade,
     },
   });
 

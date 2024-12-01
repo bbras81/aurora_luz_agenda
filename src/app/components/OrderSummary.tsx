@@ -1,10 +1,23 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
 import stock from "../../../public/data/Data";
 
 const OrderSummary = () => {
-  const [value, setValue] = React.useState(1);
-  const total = value * parseFloat(stock.price);
+  const [quantidade, setQuantidade] = useState(1);
+
+  useEffect(() => {
+    const savedQuantidade = localStorage.getItem("quantidade");
+    if (savedQuantidade) {
+      setQuantidade(parseInt(savedQuantidade, 10));
+    }
+  }, []);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    setQuantidade(value);
+    localStorage.setItem("quantidade", value.toString());
+  };
+
+  const total = quantidade * parseFloat(stock.price);
   return (
     <div className="lg:col-span-2 col-span-4 bg-white">
       <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">
@@ -26,15 +39,18 @@ const OrderSummary = () => {
           </div>
           <div className="flex flex-col col-span-1 pt-2 self-center">
             <input
+              id="quantidade"
               type="text"
               defaultValue={1}
-              onChange={(event) => setValue(parseInt(event.target.value))}
+              onChange={handleChange}
               className="block w-full p-2 border border-gray-300 rounded text-center text-sm"
             />
           </div>
           <div className="col-span-1 pt-3 self-center flex justify-end">
             <div className=" text-md">
-              <span className="text-pink-400 font-semibold ">€{stock.price}</span>
+              <span className="text-pink-400 font-semibold ">
+                €{stock.price}
+              </span>
             </div>
           </div>
         </li>
@@ -42,7 +58,7 @@ const OrderSummary = () => {
       <div className="px-8 border-b"></div>
       <div className="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
         <span>Total</span>
-        <span>€{total}</span>
+        <span>€{isNaN(total) ? 0 : total.toFixed(2)}</span>
       </div>
     </div>
   );
