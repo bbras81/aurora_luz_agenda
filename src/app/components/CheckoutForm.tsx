@@ -23,7 +23,7 @@ const CheckoutForm = () => {
     if (!nome) {
       alert("Por favor, insira o seu nome.");
       return;
-    }
+    }c
     if (!morada) {
       alert("Por favor, insira a sua morada.");
       return;

@@ -5,21 +5,23 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
+// prisma/schema.prisma
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Cliente {
-  id Int @id @default(autoincrement())
-  nome String 
-  morada String 
-  cpostal String
+  id         Int    @id @default(autoincrement())
+  nome       String
+  morada     String
+  cpostal    String
   localidade String
-  email String 
-  telemovel String 
+  email      String
+  telemovel  String
   quantidade String
 }
