@@ -9,7 +9,7 @@ const Navbar = () => {
           <Link href="/" className="flex items-center gap-3">
             <Image
               src="/Logo Terapia Holística.png"
-              alt="Aurora Luz AI Logo"
+              alt="Logotipo da Aurora de Luz Terapias Holísticas, com um design triangular que simboliza equilíbrio e espiritualidade, apresentando uma mão estendida apontando para cima, evocando conexão, luz e harmonia."
               width={200}
               height={100}
               className="w-auto"

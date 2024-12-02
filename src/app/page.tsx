@@ -11,7 +11,7 @@ export default function Home() {
           <div className="w-full">
             <Image
               src={stock[0].image}
-              alt={stock[0].title}
+              alt="Capa da Agenda Aurora de Luz 2025 - Calendário da Alma, com design elegante em tons suaves e elementos holísticos, representando equilíbrio, organização e espiritualidade."
               width={705}
               height={1000}
               className="w-full h-full object-fill rounded-lg shadow-lg"
