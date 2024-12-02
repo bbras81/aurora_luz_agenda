@@ -127,6 +127,112 @@ export async function POST(request: Request) {
 `, // html body
   });
   console.log("Message sent: %s", info.messageId);
+  const sub_encomenda = await transporter.sendMail({
+    from: "Aurora de Luz",
+    to: "info.auroradeluz@gmail.com",
+    subject: "Confirmação de encomenda",
+    html: `
+      <!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aurora de Luz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Parkinsans:wght@300..800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        background-color: #f1ecf1;
+        color: rgb(36, 36, 36);
+        font-family: "Josefin Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+      }
+      p {
+        margin-left: 10px;
+        text-align: justify;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      img {
+        width: 15rem;
+        margin: auto;
+      }
+      table {
+        margin: auto;
+        font-size: medium;
+        border-collapse: collapse;
+        border: 2px solid rgb(36, 36, 36);
+      }
+      tr,
+      td {
+        border: 1px solid rgb(36, 36, 36);
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="https://www.auroradeluz.pt/_next/image?url=%2FLogo%20Terapia%20Hol%C3%ADstica.png&w=256&q=75"
+        alt="Logotipo da Aurora de Luz, representando equilíbrio e espiritualidade, com um design triangular e uma mão estendida para simbolizar conexão e harmonia."
+      />
+      <h1 style="text-align: center">Resumo de Venda</h1>
+      <h2 style="text-align: center">
+        Conseguimos mais uma venda, <br />
+        estas no bom caminho para o sucesso da Aurora de Luz
+      </h2>
+    </div>
+    <div>
+      <table>
+        <tr>
+          <td>Nome:</td>
+          <td>${nome}</td>
+        </tr>
+        <tr>
+          <td>Morada:</td>
+          <td>${morada}</td>
+        </tr>
+        <tr>
+          <td>Codigo Postal:</td>
+          <td>${cpostal}</td>
+        </tr>
+        <tr>
+          <td>Localidade:</td>
+          <td>${localidade}</td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>${email}</td>
+        </tr>
+        <tr>
+          <td>Telemovel:</td>
+          <td>${telemovel}</td>
+        </tr>
+        <tr>
+          <td>Quantidade:</td>
+          <td>${quantidade}</td>
+        </tr>
+      </table>
+
+      <p><strong>Preço total: ${sum}</strong></p>
+      <p>Esta encomenda foi realizada na data ${new Date().toLocaleDateString(
+        "pt-PT"
+      )} apos boa cobrança deve proceder ao envio da mesma por correio registado</p>
+    </div>
+  </body>
+</html>
+`,
+  });
+  console.log("Message sent: %s", sub_encomenda.messageId);
 
   const result = await prisma.cliente.create({
     data: {

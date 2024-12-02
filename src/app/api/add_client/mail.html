@@ -23,69 +23,74 @@
         margin-left: 10px;
         text-align: justify;
       }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      img {
+        width: 15rem;
+        margin: auto;
+      }
+      table {
+        margin: auto;
+        font-size: medium;
+        border-collapse: collapse;
+        border: 2px solid rgb(36, 36, 36);
+      }
+      tr,
+      td {
+        border: 1px solid rgb(36, 36, 36);
+        padding: 8px;
+      }
     </style>
   </head>
   <body>
-    <div style="display: flex; flex-direction: column">
+    <div class="container">
       <img
         src="https://www.auroradeluz.pt/_next/image?url=%2FLogo%20Terapia%20Hol%C3%ADstica.png&w=256&q=75"
-        style="width: 40%; margin: 0 auto"
         alt="Logotipo da Aurora de Luz, representando equilíbrio e espiritualidade, com um design triangular e uma mão estendida para simbolizar conexão e harmonia."
       />
-      <h1 style="text-align: center; font-size: 1.5rem">
-        Obrigado por comprar na Aurora de Luz
-      </h1>
-      <p>
-        Olá ${nome},<br />
+      <h1 style="text-align: center">Resumo de Venda</h1>
+      <h2 style="text-align: center">
+        Conseguimos mais uma venda, <br />
+        estas no bom caminho para o sucesso da Aurora de Luz
+      </h2>
+    </div>
+    <div>
+      <table>
+        <tr>
+          <td>Nome:</td>
+          <td>{nome}</td>
+        </tr>
+        <tr>
+          <td>Morada:</td>
+          <td>{morada}</td>
+        </tr>
+        <tr>
+          <td>Codigo Postal:</td>
+          <td>{cpostal}</td>
+        </tr>
+        <tr>
+          <td>Localidade:</td>
+          <td>{localidade}</td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>{email}</td>
+        </tr>
+        <tr>
+          <td>Telemovel:</td>
+          <td>{telemovel}</td>
+        </tr>
+        <tr>
+          <td>Quantidade:</td>
+          <td>{quantidade}</td>
+        </tr>
+      </table>
 
-        Muito obrigado por escolher a nossa Agenda Aurora de Luz 2025! 🌟 <br />
-        Estamos muito felizes por fazer parte do seu 2025 com mais organização,
-        reflexão e equilíbrio. Aqui está o resumo da sua encomenda:
-      </p>
-      <p>
-        <strong>Detalhes do Pedido:</strong> <br />
-
-        Produto: <strong>Agenda Aurora de Luz 2025</strong> <br />
-        Quantidade: <strong>${quantidade}</strong> <br />
-        Valor Total: <strong>${sum} €</strong> <br />
-        Data do Pedido:
-        <strong>${new Date().toLocaleDateString( "pt-PT" )}</strong>
-      </p>
-      <p>
-        <strong>Dados para Entrega:</strong> <br />
-        Nome: <strong>${nome}</strong> <br />
-        Endereço:<strong> ${morada}, ${cpostal}, ${localidade}</strong> <br />
-        Contato: <strong>${telemovel}</strong>
-      </p>
-      <p>
-        <strong>Forma de Pagamento</strong> <br />
-        Para concluir a sua compra, escolha uma das opções abaixo e envie-nos o
-        comprovativo de pagamento: <br />
-
-        1️⃣ MB WAY <br />
-        Número: 912812769 <br />
-        Nome do Titular: CATARINA ANDREIA MOURA DA SILVA CS <br />
-        Valor: ${sum} € 2️⃣ Transferência Bancária <br />
-        IBAN:PT50 0023 0000 4561763590 94 <br />
-        Nome do Titular: Catarina Brás <br />
-        Valor: ${sum} €
-      </p>
-      <p>
-        Assim que o pagamento for confirmado, daremos seguimento ao envio da sua
-        encomenda. <br />
-        🛠 Se tiver alguma dúvida ou precisar de ajuda, estamos aqui para si!
-        <br />
-        Contacte-nos pelo e-mail
-        <strong><i>info.auroradeluz@gmail.com</i> </strong> ou pelo WhatsApp
-        <strong><i>912812769</i> </strong>. ✨<br />
-        Gratidão por fazer parte da nossa comunidade! <br />
-        Estamos ansiosos para que a sua Agenda Aurora de Luz 2025 ilumine os
-        seus dias! 🌟 Com luz e carinho, www.auroradeluz.pt <br />
-        P.S.: Não se esqueça de nos seguir nas redes sociais para mais novidades
-        e inspirações: <br />
-        Instagram: <strong><i>@auroradeluz.pt</i></strong> Facebook:
-        <strong><i>Aurora de Luz Terapias</i></strong>
-      </p>
+      <p><strong>Preço total: {total}</strong></p>
+      <p>Esta encomenda foi realizada na data {data} apos boa cobrança deve proceder ao envio da mesma por correio registado</p>
     </div>
   </body>
 </html>
