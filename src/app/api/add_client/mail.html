@@ -1,32 +1,4 @@
-import { NextResponse } from "next/server";
-import prisma from "../../lib/prisma";
-import stock from "../../../../public/data/Data";
-const nodemailer = require("nodemailer");
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true, // true for port 465, false for other ports
-  auth: {
-    user: "info.auroradeluz@gmail.com",
-    pass: "geux dtuy jlen yvso",
-  },
-});
-
-export async function POST(request: Request) {
-  const res = await request.json();
-  //   console.log(res);
-  const { nome, morada, cpostal, localidade, email, telemovel, quantidade } =
-    res;
-  let sum: number = 0;
-  sum = Number(stock["price"]) * Number(quantidade);
-  sum = Number(sum.toFixed(2));
-  // send mail with defined transport object
-  const info = await transporter.sendMail({
-    from: "Aurora de Luz",
-    to: email,
-    subject: "Obrigado por comprar na Aurora de Luz", // Subject line
-    html: `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-PT">
   <head>
     <meta charset="UTF-8" />
@@ -48,8 +20,8 @@ export async function POST(request: Request) {
         font-style: normal;
       }
       p {
+        margin-left: 10px;
         text-align: justify;
-        magin-left: 10px;
       }
     </style>
   </head>
@@ -76,9 +48,8 @@ export async function POST(request: Request) {
         Produto: <strong>Agenda Aurora de Luz 2025</strong> <br />
         Quantidade: <strong>${quantidade}</strong> <br />
         Valor Total: <strong>${sum} €</strong> <br />
-        Data do Pedido: <strong>${new Date().toLocaleDateString(
-          "pt-PT"
-        )}</strong>
+        Data do Pedido:
+        <strong>${new Date().toLocaleDateString( "pt-PT" )}</strong>
       </p>
       <p>
         <strong>Dados para Entrega:</strong> <br />
@@ -87,15 +58,14 @@ export async function POST(request: Request) {
         Contato: <strong>${telemovel}</strong>
       </p>
       <p>
-        <strong>Forma de Pagamento:</strong> <br />
+        <strong>Forma de Pagamento</strong> <br />
         Para concluir a sua compra, escolha uma das opções abaixo e envie-nos o
         comprovativo de pagamento: <br />
 
         1️⃣ MB WAY <br />
         Número: 912812769 <br />
         Nome do Titular: CATARINA ANDREIA MOURA DA SILVA CS <br />
-        Valor: ${sum} € <br />
-        2️⃣ Transferência Bancária <br />
+        Valor: ${sum} € 2️⃣ Transferência Bancária <br />
         IBAN:PT50 0023 0000 4561763590 94 <br />
         Nome do Titular: Catarina Brás <br />
         Valor: ${sum} €
@@ -119,21 +89,3 @@ export async function POST(request: Request) {
     </div>
   </body>
 </html>
-`, // html body
-  });
-  console.log("Message sent: %s", info.messageId);
-
-  const result = await prisma.cliente.create({
-    data: {
-      nome,
-      morada,
-      cpostal,
-      localidade,
-      email,
-      telemovel,
-      quantidade,
-    },
-  });
-
-  return NextResponse.json({ result });
-}

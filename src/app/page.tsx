@@ -4,7 +4,7 @@ import stock from "../../public/data/Data";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--background)] py-8">
+    <main className="min-h-screen bg-background py-8">
       <div className="container w-full max-w-5xl h-full mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Product Image */}
@@ -20,17 +20,17 @@ export default function Home() {
 
           {/* Product Details */}
           <div>
-            <p className="text-lg text-[var(--foreground)] mb-6">
+            <p className="text-lg text-foreground mb-6">
               {stock.description}
             </p>
 
-            <p className="text-lg text-[var(--foreground)] mb-6">
+            <p className="text-lg text-foreground mb-6">
               {stock.description}
             </p>
 
             <div className="mb-6">
               <h2 className="text-xl font-semibold mb-3">Destaques:</h2>
-              <ul className="list-disc list-inside space-y-2 text-[var(--foreground)]">
+              <ul className="list-disc list-inside space-y-2 text-foreground">
                 {stock.features.map((feature, index) => (
                   <li key={index}>{feature}</li>
                 ))}
@@ -38,15 +38,15 @@ export default function Home() {
             </div>
 
             <div className="flex items-center mb-6">
-              <span className="text-3xl font-bold text-[var(--accent-primary)] mr-4">
-                {stock.price}
+              <span className="text-3xl font-bold text-primary mr-4">
+                €{stock.price}
               </span>
             </div>
 
             <div className="space-y-4">
               <Link
                 href="/Comprar"
-                className="block  w-full text-center bg-[var(--accent-primary)] text-white py-4 rounded-lg text-lg hover:opacity-90 transition-opacity"
+                className="block  w-full text-center bg-primary text-white py-4 rounded-lg text-lg hover:opacity-90 transition-opacity"
               >
                 Comprar Agora
               </Link>
@@ -58,7 +58,7 @@ export default function Home() {
           <Link
             href="https://www.instagram.com/auroradeluz.pt/"
             target="_blank"
-            className="inline-flex items-center text-[var(--accent-primary)] hover:opacity-80 transition-opacity"
+            className="inline-flex items-center text-primary hover:opacity-80 transition-opacity"
           >
             <svg
               className="w-6 h-6 mr-2"
