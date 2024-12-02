@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "../../lib/prisma";
 import stock from "../../../../public/data/Data";
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
