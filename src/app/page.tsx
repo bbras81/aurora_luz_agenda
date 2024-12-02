@@ -10,8 +10,8 @@ export default function Home() {
           {/* Product Image */}
           <div className="w-full">
             <Image
-              src={stock.image}
-              alt={stock.title}
+              src={stock[0].image}
+              alt={stock[0].title}
               width={705}
               height={1000}
               className="w-full h-full object-fill rounded-lg shadow-lg"
@@ -21,17 +21,17 @@ export default function Home() {
           {/* Product Details */}
           <div>
             <p className="text-lg text-foreground mb-6">
-              {stock.description}
+              {stock[0].description}
             </p>
 
             <p className="text-lg text-foreground mb-6">
-              {stock.description}
+              {stock[0].description}
             </p>
 
             <div className="mb-6">
               <h2 className="text-xl font-semibold mb-3">Destaques:</h2>
               <ul className="list-disc list-inside space-y-2 text-foreground">
-                {stock.features.map((feature, index) => (
+                {stock[0].features.map((feature, index) => (
                   <li key={index}>{feature}</li>
                 ))}
               </ul>
@@ -39,7 +39,7 @@ export default function Home() {
 
             <div className="flex items-center mb-6">
               <span className="text-3xl font-bold text-primary mr-4">
-                €{stock.price}
+                €{stock[0].price}
               </span>
             </div>
 

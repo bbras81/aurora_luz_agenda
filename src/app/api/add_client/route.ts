@@ -19,7 +19,8 @@ export async function POST(request: Request) {
   const { nome, morada, cpostal, localidade, email, telemovel, quantidade } =
     res;
   let sum: number = 0;
-  sum = Number(stock["price"]) * Number(quantidade);
+  sum =
+    Number(stock[0]["price"]) * Number(quantidade) + Number(stock[1]["price"]);
   sum = Number(sum.toFixed(2));
   // send mail with defined transport object
   const info = await transporter.sendMail({
@@ -47,6 +48,10 @@ export async function POST(request: Request) {
         font-optical-sizing: auto;
         font-style: normal;
       }
+        body {
+          margin: 0;
+          padding: 0;
+        }
       p {
         text-align: justify;
         magin-left: 10px;
