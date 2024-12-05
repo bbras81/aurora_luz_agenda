@@ -1,8 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import stock from "../../public/data/Data";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "ViewContent", {
+        content_name: "Agenda Aurora de Luz 2025",
+        content_category: "Agenda",
+        value: 13.97,
+        currency: "EUR",
+      });
+    }
+  }, []);
   return (
     <main className="min-h-screen bg-background py-8">
       <div className="container w-full max-w-5xl h-full mx-auto px-4">

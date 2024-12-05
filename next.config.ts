@@ -2,7 +2,18 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["images.unsplash.com"], // Adicione aqui os domínios das suas imagens
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.facebook.com",
+        pathname: "/**",
+      },
+    ],
   },
   // Otimizações de performance
   compiler: {
