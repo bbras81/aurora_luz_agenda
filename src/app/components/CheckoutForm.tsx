@@ -53,7 +53,7 @@ const CheckoutForm = () => {
     // console.log("Dados validados:", formDataObject);
 
     try {
-      fetch("/api/add_client", {
+      const response = await fetch("/api/add_client", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,6 +68,11 @@ const CheckoutForm = () => {
           quantidade,
         }),
       });
+
+      if (!response.ok) {
+        throw new Error("Erro ao enviar os dados. Tente novamente.");
+      }
+
       if (typeof window !== "undefined" && typeof window.fbq === "function") {
         window.fbq("track", "Purchase", {
           value: 13.97, // valor do produto
@@ -78,14 +83,18 @@ const CheckoutForm = () => {
           content_type: "product",
         });
       }
-      setIsSubmitting(false);
-      // Limpar o formulário
+
       event.currentTarget.reset();
+      router.push("/instrucoes");
+
+      // Limpar o formulário
 
       // Redirecionar para a próxima página
-      router.push("/instrucoes");
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
+      alert("Ocorreu um erro ao processar o pedido. Tente novamente.");
+    } finally {
+      setIsSubmitting(false); // Garante que o botão é reativado após o envio
     }
   };
 
