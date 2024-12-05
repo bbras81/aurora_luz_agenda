@@ -5,8 +5,10 @@ import React from "react";
 
 const CheckoutForm = () => {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Evita o recarregamento da página
+    setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
 
@@ -66,6 +68,17 @@ const CheckoutForm = () => {
           quantidade,
         }),
       });
+      if (typeof window !== "undefined" && typeof window.fbq === "function") {
+        window.fbq("track", "Purchase", {
+          value: 13.97, // valor do produto
+          currency: "EUR", // moeda
+          content_name: "Agenda Aurora de Luz 2025",
+          content_category: "Agenda",
+          content_ids: ["pay-button"], // identificador único
+          content_type: "product",
+        });
+      }
+      setIsSubmitting(false);
       // Limpar o formulário
       event.currentTarget.reset();
 
@@ -183,12 +196,15 @@ const CheckoutForm = () => {
             required
           />
         </div>
-
         <button
+          id="pay-button"
           type="submit"
-          className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          disabled={isSubmitting}
+          className={`text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
-          Pagar
+          {isSubmitting ? "Processando..." : "Pagar"}
         </button>
       </form>
     </div>
