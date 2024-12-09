@@ -34,10 +34,11 @@ const CheckoutForm = () => {
       alert("Por favor, insira um código postal válido (ex: 1234-567).");
       return;
     }
-    if (!/^[a-zA-Z\s]{2,50}$/.test(localidade ?? "")) {
+    if (!/^[a-zA-ZÀ-ÿ\s]{2,50}$/.test(localidade ?? "")) {
       alert("Por favor, insira uma localidade válida (máximo 50 caracteres).");
       return;
     }
+
     if (!/^\S+@\S+\.\S+$/.test(email!)) {
       alert("Por favor, insira um email válido.");
       return;
