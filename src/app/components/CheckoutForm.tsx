@@ -5,10 +5,8 @@ import React from "react";
 
 const CheckoutForm = () => {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Evita o recarregamento da página
-    setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
 
@@ -54,7 +52,7 @@ const CheckoutForm = () => {
     // console.log("Dados validados:", formDataObject);
 
     try {
-      const response = await fetch("/api/add_client", {
+      await fetch("/api/add_client", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,10 +67,6 @@ const CheckoutForm = () => {
           quantidade,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error("Erro ao enviar os dados. Tente novamente.");
-      }
 
       if (typeof window !== "undefined" && typeof window.fbq === "function") {
         window.fbq("track", "Purchase", {
@@ -94,8 +88,6 @@ const CheckoutForm = () => {
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
       alert("Ocorreu um erro ao processar o pedido. Tente novamente.");
-    } finally {
-      setIsSubmitting(false); // Garante que o botão é reativado após o envio
     }
   };
 
@@ -209,12 +201,9 @@ const CheckoutForm = () => {
         <button
           id="pay-button"
           type="submit"
-          disabled={isSubmitting}
-          className={`text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ${
-            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-          }`}
+          className={`text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
         >
-          {isSubmitting ? "Processando..." : "Pagar"}
+          Pagar
         </button>
       </form>
     </div>
