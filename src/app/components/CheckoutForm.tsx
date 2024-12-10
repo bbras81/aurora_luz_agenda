@@ -1,58 +1,49 @@
-"use client";
-
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 const CheckoutForm = () => {
   const router = useRouter();
+
+  // Gerenciar o estado dos campos do formulário
+  const [formData, setFormData] = useState({
+    nome: "",
+    morada: "",
+    cpostal: "",
+    localidade: "",
+    email: "",
+    telemovel: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Evita o recarregamento da página
 
-    const formData = new FormData(event.currentTarget);
-
-    // Obter os valores do formulário
-    const nome = formData.get("nome")?.toString().trim();
-    const morada = formData.get("morada")?.toString().trim();
-    const cpostal = formData.get("cpostal")?.toString().trim();
-    const localidade = formData.get("localidade")?.toString().trim();
-    const email = formData.get("email")?.toString().trim();
-    const telemovel = formData.get("telemovel")?.toString().trim();
+    const { nome, morada, cpostal, localidade, email, telemovel } = formData;
     const quantidade = localStorage.getItem("quantidade") || "1";
 
     // Validação dos campos
-    if (!nome) {
-      alert("Por favor, insira o seu nome.");
+    if (
+      !nome ||
+      !morada ||
+      !cpostal ||
+      !localidade ||
+      !email ||
+      !telemovel ||
+      !quantidade
+    ) {
+      alert("Por favor, preencha todos os campos corretamente.");
       return;
     }
-    if (!morada) {
-      alert("Por favor, insira a sua morada.");
-      return;
-    }
-    if (cpostal && !/^\d{4}-\d{3}$/.test(cpostal)) {
-      alert("Por favor, insira um código postal válido (ex: 1234-567).");
-      return;
-    }
-    if (!/^[a-zA-ZÀ-ÿ\s]{2,50}$/.test(localidade ?? "")) {
-      alert("Por favor, insira uma localidade válida (máximo 50 caracteres).");
-      return;
-    }
-
-    if (!/^\S+@\S+\.\S+$/.test(email!)) {
-      alert("Por favor, insira um email válido.");
-      return;
-    }
-    if (!/^\d{9}$/.test(telemovel!)) {
-      alert("Por favor, insira um número de telemóvel válido com 9 dígitos.");
-      return;
-    }
-    if (!/^[1-9]\d*$/.test(quantidade.toString())) {
-      alert("Por favor, insira uma quantidade válida.");
-      return;
-    }
-    // console.log("Dados validados:", formDataObject);
 
     try {
-      await fetch("/api/add_client", {
+      const response = await fetch("/api/add_client", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,6 +59,23 @@ const CheckoutForm = () => {
         }),
       });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao processar o pedido.");
+      }
+
+      // Limpar o formulário após o envio
+      setFormData({
+        nome: "",
+        morada: "",
+        cpostal: "",
+        localidade: "",
+        email: "",
+        telemovel: "",
+      });
+
+      router.push("/instrucoes");
+
       if (typeof window !== "undefined" && typeof window.fbq === "function") {
         window.fbq("track", "Purchase", {
           value: 13.97, // valor do produto
@@ -78,16 +86,17 @@ const CheckoutForm = () => {
           content_type: "product",
         });
       }
-
-      event.currentTarget.reset();
-      router.push("/instrucoes");
-
-      // Limpar o formulário
-
-      // Redirecionar para a próxima página
-    } catch (error) {
-      console.error("Erro ao enviar dados:", error);
-      alert("Ocorreu um erro ao processar o pedido. Tente novamente.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Erro ao enviar dados:", error);
+        alert(
+          error.message ||
+            "Ocorreu um erro ao processar o pedido. Tente novamente."
+        );
+      } else {
+        console.error("Erro desconhecido:", error);
+        alert("Ocorreu um erro desconhecido.");
+      }
     }
   };
 
@@ -102,102 +111,28 @@ const CheckoutForm = () => {
         onSubmit={handleSubmit}
         className="max-w-sm mx-auto mb-6"
       >
-        <div className="mb-5">
-          <label
-            htmlFor="nome"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Nome
-          </label>
-          <input
-            type="text"
-            name="nome"
-            id="nome"
-            className="autofocus bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Nome e apelido"
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="morada"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Morada
-          </label>
-          <input
-            type="text"
-            name="morada"
-            id="morada"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Rua e número"
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="cpostal"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Código Postal
-          </label>
-          <input
-            type="text"
-            name="cpostal"
-            id="cpostal"
-            className="autofocus bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="1234-123"
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="localidade"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Localidade
-          </label>
-          <input
-            type="text"
-            name="localidade"
-            id="localidade"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Localidade"
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className="autofocus bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Seu email"
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="telemovel"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Telemóvel
-          </label>
-          <input
-            type="text"
-            name="telemovel"
-            id="telemovel"
-            className="autofocus bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="910000000"
-            required
-          />
-        </div>
+        {["nome", "morada", "cpostal", "localidade", "email", "telemovel"].map(
+          (field) => (
+            <div className="mb-5" key={field}>
+              <label
+                htmlFor={field}
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                {field.charAt(0).toUpperCase() + field.slice(1)}
+              </label>
+              <input
+                type="text"
+                name={field}
+                id={field}
+                value={formData[field as keyof typeof formData]}
+                onChange={handleChange}
+                className="autofocus bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder={`${field}`}
+                required
+              />
+            </div>
+          )
+        )}
         <button
           id="pay-button"
           type="submit"

@@ -12,6 +12,7 @@ const Navbar = () => {
               alt="Logotipo da Aurora de Luz Terapias Holísticas, com um design triangular que simboliza equilíbrio e espiritualidade, apresentando uma mão estendida apontando para cima, evocando conexão, luz e harmonia."
               width={200}
               height={100}
+              priority
               className="w-auto"
             />
           </Link>

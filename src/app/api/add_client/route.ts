@@ -22,6 +22,19 @@ export async function POST(request: Request) {
   sum =
     Number(stock[0]["price"]) * Number(quantidade) + Number(stock[1]["price"]);
   sum = Number(sum.toFixed(2));
+
+  const result = await prisma.cliente.create({
+    data: {
+      nome,
+      morada,
+      cpostal,
+      localidade,
+      email,
+      telemovel,
+      quantidade,
+    },
+  });
+
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: "Aurora de Luz",
@@ -133,7 +146,7 @@ export async function POST(request: Request) {
     subject: "Confirmação de encomenda",
     html: `
       <!DOCTYPE html>
-<html lang="pt-PT">
+  <html lang="pt-PT">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -233,18 +246,6 @@ export async function POST(request: Request) {
 `,
   });
   console.log("Message sent: %s", sub_encomenda.messageId);
-
-  const result = await prisma.cliente.create({
-    data: {
-      nome,
-      morada,
-      cpostal,
-      localidade,
-      email,
-      telemovel,
-      quantidade,
-    },
-  });
 
   return NextResponse.json({ result });
 }
