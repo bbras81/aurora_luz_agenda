@@ -28,13 +28,16 @@ const CheckoutForm = () => {
     const { nome, morada, cpostal, localidade, email, telemovel } = formData;
     const quantidade = localStorage.getItem("quantidade") || "1";
 
+    // Normalização do e-mail
+    const normalizedEmail = email.trim().toLowerCase();
+
     // Validação dos campos
     if (
       !nome ||
       !morada ||
       !cpostal ||
       !localidade ||
-      !email ||
+      !normalizedEmail ||
       !telemovel ||
       !quantidade
     ) {
@@ -53,7 +56,7 @@ const CheckoutForm = () => {
           morada,
           cpostal,
           localidade,
-          email,
+          email: normalizedEmail,
           telemovel,
           quantidade,
         }),
