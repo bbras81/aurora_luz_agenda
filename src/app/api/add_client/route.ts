@@ -95,7 +95,7 @@ export async function POST(request: Request) {
         Quantidade: <strong>${quantidade}</strong> <br />
         Valor Total: <strong>${sum} €</strong> <br />
         Data do Pedido: <strong>${new Date().toLocaleDateString(
-          "pt-PT"
+          "pt-PT",
         )}</strong>
       </p>
       <p>
@@ -114,7 +114,7 @@ export async function POST(request: Request) {
         Nome do Titular: CATARINA ANDREIA MOURA DA SILVA CS <br />
         Valor: ${sum} € <br />
         2️⃣ Transferência Bancária <br />
-        IBAN:PT50 0023 0000 4561763590 94 <br />
+        IBAN:PT50 0023 0000 45617163590 94 <br />
         Nome do Titular: Catarina Brás <br />
         Valor: ${sum} €
       </p>
@@ -238,7 +238,7 @@ export async function POST(request: Request) {
 
       <p><strong>Preço total: ${sum}</strong></p>
       <p>Esta encomenda foi realizada na data ${new Date().toLocaleDateString(
-        "pt-PT"
+        "pt-PT",
       )} apos boa cobrança deve proceder ao envio da mesma por correio registado</p>
     </div>
   </body>
